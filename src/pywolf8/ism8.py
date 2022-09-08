@@ -587,21 +587,27 @@ class Ism8(asyncio.Protocol):
             )
             return False
 
-        if value < self.get_min_value(dp_id) or self.get_max_value(dp_id) < value:
+        if type(value) != str:
+            if value < self.get_min_value(dp_id) or self.get_max_value(dp_id) < value:
 
-            self._LOGGER.error(
-                "value %d is out of range(%d < n < %d)",
-                value,
-                self.get_min_value(dp_id),
-                self.get_max_value(dp_id),
-            )
-            return False
+                self._LOGGER.error(
+                    "value %d is out of range(%d < n < %d)",
+                    value,
+                    self.get_min_value(dp_id),
+                    self.get_max_value(dp_id),
+                )
+                return False
         return True
 
     def send_dp_value(self, dp_id: int, value: Any) -> None:
         """ """
         if not self.__validate_value_for_dp(dp_id, value):
 
+            return
+
+        if not self._connected or self._transport is None:
+
+            self._LOGGER.error("No Connection to ISM8 Module")
             return
         dp_type = Ism8.DATAPOINTS[dp_id][Ism8.DP_TYPE]
         encoded_value = 0b0
