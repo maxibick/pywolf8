@@ -341,6 +341,11 @@ class Ism8(asyncio.Protocol):
         return Ism8.DATAPOINTS.get(dp_id, ["", "", "", "", ""])[Ism8.DP_TYPE]
 
     @staticmethod
+    def is_writable(dp_id) -> Boolean:
+        """returns sensor type from private array of sensor-readings"""
+        return Ism8.DATAPOINTS.get(dp_id, ["", "", "", "", ""])[Ism8.DP_RW]
+
+    @staticmethod
     def get_min_value(dp_id: int) -> Any:
         """returns min value allowed for datapoint"""
         datatype = Ism8.DATAPOINTS.get(dp_id, ["", "", "", "", ""])[Ism8.DP_TYPE]
