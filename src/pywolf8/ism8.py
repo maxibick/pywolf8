@@ -2,14 +2,11 @@
 Module for gathering info from Wolf Heating System via ISM8 adapter
 """
 
-from base64 import encode
 import datetime
 import logging
 import asyncio
 from time import time
-from turtle import update
 from typing import Any, Optional
-from xmlrpc.client import Boolean
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -492,7 +489,7 @@ class Ism8(asyncio.Protocol):
         return Ism8.DATAPOINTS.get(dp_id, ["", "", "", "", ""])[Ism8.DP_TYPE]
 
     @staticmethod
-    def is_writable(dp_id) -> Boolean:
+    def is_writable(dp_id) -> bool:
         """returns sensor type from private array of sensor-readings"""
         return Ism8.DATAPOINTS.get(dp_id, ["", "", "", "", ""])[Ism8.DP_RW]
 
@@ -583,12 +580,12 @@ class Ism8(asyncio.Protocol):
         return None
 
     @staticmethod
-    def decode_Bool(input: int) -> Boolean:
+    def decode_Bool(input: int) -> bool:
         # take 1st bit and cast to Bool
         return bool(input & 0b1)
 
     @staticmethod
-    def encode_Bool(input: Boolean) -> bytearray:
+    def encode_Bool(input: bool) -> bytearray:
         return bytearray([int(input)])
 
     @staticmethod
@@ -728,7 +725,7 @@ class Ism8(asyncio.Protocol):
             dp_nbr += 1
             i = i + 10 + dp_length
 
-    def __validate_value_for_dp(self, dp_id: int, value: Any) -> Boolean:
+    def __validate_value_for_dp(self, dp_id: int, value: Any) -> bool:
         """
         validate if dp with given value
         """
