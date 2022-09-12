@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "pywolf8"
-version = "0.3"
+version = "0.4"
 authors = [
   { name="maxibick", email="author@example.com" },
 ]

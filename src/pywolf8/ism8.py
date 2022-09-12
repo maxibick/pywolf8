@@ -407,6 +407,9 @@ class Ism8(asyncio.Protocol):
         356: ("CWL", "undokumentiert_356", "DPT_unknown", False, "", None),
         357: ("CWL", "undokumentiert_357", "DPT_unknown", False, "", None),
         358: ("CWL", "undokumentiert_358", "DPT_unknown", False, "", None),
+        359: ("CWL", "undokumentiert_359", "DPT_unknown", False, "", None),
+        360: ("CWL", "undokumentiert_360", "DPT_unknown", False, "", None),
+        361: ("CWL", "undokumentiert_361", "DPT_unknown", False, "", None),
     }
 
     DT_MIN = 0
@@ -875,7 +878,7 @@ class Ism8(asyncio.Protocol):
             self._dp_values.update({dp_id: Ism8.decode_Int(result)})
 
         else:
-            self._LOGGER.error("datatype unknown, using INT: %s ", dp_type)
+            self._LOGGER.debug("datatype unknown, using INT: %s ", dp_type)
             self._dp_values.update({dp_id: Ism8.decode_Int(result)})
 
         self._LOGGER.debug(
